@@ -1,0 +1,848 @@
+
+/* ==========================================
+   PATHLYN RISK MAP PAGE
+========================================== */
+
+.risk-map-page {
+  width: 100%;
+  min-height: 100vh;
+  background: #f5f7fb;
+  font-family: Arial, sans-serif;
+  color: #172033;
+}
+
+.risk-map-main {
+  width: 100%;
+  height: calc(100vh - 108px);
+  min-height: 650px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 380px;
+  overflow: hidden;
+}
+
+/* ==========================================
+   MAP AREA
+========================================== */
+
+.risk-map-area {
+  position: relative;
+  min-width: 0;
+  height: 100%;
+  background: #e8eef0;
+  overflow: hidden;
+}
+
+.risk-leaflet-map {
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+/* Keep Leaflet controls above the map */
+.risk-map-area .leaflet-control-container {
+  z-index: 450;
+}
+
+.risk-map-area .leaflet-top,
+.risk-map-area .leaflet-bottom {
+  z-index: 450;
+}
+
+/* ==========================================
+   SEVERITY KEY
+========================================== */
+
+.severity-key {
+  position: absolute;
+  top: 32px;
+  left: 32px;
+  z-index: 500;
+  width: 225px;
+  padding: 15px;
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid #e2e8f0;
+  border-radius: 13px;
+  box-shadow: 0 4px 15px rgba(15, 23, 42, 0.12);
+}
+
+.severity-key h3 {
+  margin: 0 0 12px;
+  font-size: 12px;
+  font-weight: 800;
+  color: #172033;
+}
+
+.severity-key div {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 8px;
+  color: #64748b;
+  font-size: 11px;
+}
+
+.key-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  flex-shrink: 0;
+  border-radius: 50%;
+}
+
+.key-dot.high {
+  background: #f43f5e;
+}
+
+.key-dot.moderate {
+  background: #f59e0b;
+}
+
+.key-dot.low {
+  background: #10b981;
+}
+
+/* ==========================================
+   MAP MARKERS
+========================================== */
+
+.risk-map-marker-wrapper {
+  background: transparent;
+  border: none;
+}
+
+.risk-map-marker {
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--marker-color);
+  border: 3px solid #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease;
+}
+
+.risk-map-marker:hover {
+  transform: scale(1.2);
+}
+
+.risk-map-marker span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ffffff;
+}
+
+/* ==========================================
+   MAP POPUP
+========================================== */
+
+.risk-map-popup {
+  min-width: 170px;
+  font-family: Arial, sans-serif;
+}
+
+.risk-map-popup h3 {
+  margin: 0 0 8px;
+  color: #172033;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.risk-map-popup p {
+  margin: 0 0 9px;
+  color: #64748b;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.risk-map-popup strong {
+  font-size: 11px;
+}
+
+/* ==========================================
+   MAP INFORMATION CARD
+========================================== */
+
+.map-info-card {
+  position: absolute;
+  top: 220px;
+  left: 38%;
+  z-index: 500;
+  width: 280px;
+  padding: 15px;
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid #06b6d4;
+  border-radius: 12px;
+  box-shadow: 0 5px 18px rgba(15, 23, 42, 0.12);
+}
+
+.map-info-title {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 13px;
+}
+
+.map-info-card p {
+  margin: 9px 0;
+  color: #64748b;
+  font-size: 11px;
+}
+
+.map-info-score {
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.map-info-close {
+  position: absolute;
+  top: 6px;
+  right: 9px;
+  border: none;
+  background: transparent;
+  color: #64748b;
+  font-size: 21px;
+  cursor: pointer;
+}
+
+.map-info-close:hover {
+  color: #172033;
+}
+
+/* ==========================================
+   MAP FOOTER
+========================================== */
+
+.risk-map-footer-note {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 400;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 9px 15px;
+  background: rgba(8, 14, 27, 0.92);
+  color: #ffffff;
+  font-size: 10px;
+}
+
+.risk-map-footer-note span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ==========================================
+   MAP LOADING / ERROR / EMPTY MESSAGES
+========================================== */
+
+.risk-map-loading-message,
+.risk-map-error-message,
+.risk-map-empty-message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 600;
+  transform: translate(-50%, -50%);
+  width: min(360px, calc(100% - 40px));
+  padding: 20px;
+  box-sizing: border-box;
+  text-align: center;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 13px;
+  box-shadow: 0 8px 25px rgba(15, 23, 42, 0.15);
+}
+
+.risk-map-loading-message {
+  color: #0891b2;
+}
+
+.risk-map-error-message {
+  border-color: #fecaca;
+  color: #b91c1c;
+}
+
+.risk-map-empty-message {
+  color: #64748b;
+}
+
+.risk-map-loading-message p,
+.risk-map-error-message p,
+.risk-map-empty-message p {
+  margin: 8px 0 0;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* ==========================================
+   RIGHT SIDEBAR
+========================================== */
+
+.risk-map-sidebar {
+  height: 100%;
+  min-width: 0;
+  overflow-y: auto;
+  padding: 25px 23px;
+  box-sizing: border-box;
+  background: #ffffff;
+  border-left: 1px solid #e2e8f0;
+  position: relative;
+  z-index: 2;
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+
+.risk-map-sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.risk-map-sidebar::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+
+.sidebar-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 27px;
+}
+
+.sidebar-heading svg {
+  flex-shrink: 0;
+  color: #0891b2;
+}
+
+.sidebar-heading h2 {
+  margin: 0;
+  color: #172033;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+/* ==========================================
+   SIDEBAR SECTIONS
+========================================== */
+
+.sidebar-section {
+  margin-bottom: 26px;
+}
+
+.sidebar-section > h3,
+.diagnostics-heading h3 {
+  margin: 0 0 12px;
+  color: #647895;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+}
+
+/* ==========================================
+   LAYER TOGGLE BUTTONS
+========================================== */
+
+.layer-toggle {
+  width: 100%;
+  min-height: 41px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 11px;
+  padding: 0 11px;
+  box-sizing: border-box;
+  border: 1px solid #dce5ef;
+  border-radius: 9px;
+  background: #f8fafc;
+  color: #172033;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.layer-toggle span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.layer-toggle span svg {
+  display: none;
+  color: #0891b2;
+}
+
+.layer-toggle i {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  border-radius: 4px;
+  background: #e2e8f0;
+  transition: background 0.2s ease;
+}
+
+.layer-toggle.enabled {
+  border-color: #06b6d4;
+  background: #ecfeff;
+}
+
+.layer-toggle.enabled i {
+  background: #06b6d4;
+}
+
+.layer-toggle:hover {
+  border-color: #06b6d4;
+}
+
+.layer-toggle:focus-visible {
+  outline: 2px solid #0891b2;
+  outline-offset: 2px;
+}
+
+/* ==========================================
+   DIAGNOSTICS
+========================================== */
+
+.diagnostics-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.diagnostics-heading h3 {
+  margin-bottom: 12px;
+}
+
+.diagnostics-heading > span {
+  margin-bottom: 12px;
+  color: #94a3b8;
+  font-size: 10px;
+}
+
+.diagnostics-list {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.diagnostic-item {
+  width: 100%;
+  min-height: 41px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 10px;
+  box-sizing: border-box;
+  background: #ffffff;
+  border: 1px solid #dce5ef;
+  border-radius: 9px;
+  color: #172033;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.diagnostic-item:hover,
+.diagnostic-item.selected {
+  border-color: #06b6d4;
+  background: #ecfeff;
+}
+
+.diagnostic-name {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  text-align: left;
+}
+
+.diagnostic-name svg {
+  display: none;
+  flex-shrink: 0;
+  color: #0891b2;
+}
+
+.diagnostic-name span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.diagnostic-score {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #647895;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.diagnostic-score i {
+  width: 7px;
+  height: 7px;
+  flex-shrink: 0;
+  border-radius: 50%;
+}
+
+.show-all-zones {
+  width: 100%;
+  min-height: 39px;
+  margin-top: 14px;
+  border: 1px solid #06b6d4;
+  border-radius: 8px;
+  background: #ecfeff;
+  color: #087f98;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.show-all-zones:hover {
+  background: #cffafe;
+}
+
+/* ==========================================
+   SELECTED ZONE DETAILS
+========================================== */
+
+.selected-zone-panel {
+  margin-top: 25px;
+  padding: 15px;
+  box-sizing: border-box;
+  border: 1px solid #dce5ef;
+  border-radius: 11px;
+  background: #f8fafc;
+}
+
+.selected-zone-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 13px;
+  color: #0891b2;
+}
+
+.selected-zone-heading h3 {
+  margin: 0;
+  color: #172033;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.selected-zone-panel > strong {
+  display: block;
+  color: #172033;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.selected-zone-score {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-top: 13px;
+  color: #64748b;
+  font-size: 11px;
+}
+
+.selected-zone-score strong {
+  font-size: 14px;
+  color: #172033;
+}
+
+.selected-zone-bar {
+  height: 7px;
+  overflow: hidden;
+  margin-top: 8px;
+  border-radius: 10px;
+  background: #e2e8f0;
+}
+
+.selected-zone-bar span {
+  display: block;
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.3s ease;
+}
+
+.selected-zone-panel p {
+  margin: 11px 0 0;
+  color: #64748b;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+/* ==========================================
+   SELECTED ZONE EXTRA INFORMATION
+========================================== */
+
+.selected-zone-extra {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+  margin-top: 14px;
+}
+
+.selected-zone-extra > div {
+  min-width: 0;
+  padding: 10px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.selected-zone-extra span {
+  display: block;
+  margin-bottom: 5px;
+  color: #94a3b8;
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.selected-zone-extra strong {
+  display: block;
+  color: #172033;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+/* ==========================================
+   BACKEND SUMMARY
+========================================== */
+
+.risk-map-backend-summary {
+  margin-top: 20px;
+  padding: 14px;
+  border: 1px solid #dce5ef;
+  border-radius: 10px;
+  background: #ffffff;
+}
+
+.risk-map-backend-summary h3 {
+  margin: 0 0 12px;
+  color: #647895;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+}
+
+.risk-map-backend-summary > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid #f1f5f9;
+  color: #64748b;
+  font-size: 11px;
+}
+
+.risk-map-backend-summary > div:last-child {
+  border-bottom: none;
+}
+
+.risk-map-backend-summary strong {
+  color: #172033;
+  font-size: 12px;
+  text-align: right;
+}
+
+.risk-map-backend-summary .summary-high {
+  color: #e11d48;
+}
+
+.risk-map-backend-summary .summary-moderate {
+  color: #d97706;
+}
+
+.risk-map-backend-summary .summary-low {
+  color: #059669;
+}
+
+/* ==========================================
+   DATA NOTICE
+========================================== */
+
+.risk-map-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  margin-top: 25px;
+  padding: 12px;
+  box-sizing: border-box;
+  border: 1px solid #fde68a;
+  border-radius: 9px;
+  background: #fffbeb;
+  color: #92400e;
+}
+
+.risk-map-notice svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.risk-map-notice p {
+  margin: 0;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+/* ==========================================
+   BUTTON AND INTERACTION STATES
+========================================== */
+
+.risk-map-sidebar button:focus-visible {
+  outline: 2px solid #0891b2;
+  outline-offset: 2px;
+}
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media (max-width: 1000px) {
+  .risk-map-main {
+    height: auto;
+    min-height: calc(100vh - 108px);
+    grid-template-columns: minmax(0, 1fr) 320px;
+  }
+
+  .risk-map-area {
+    min-height: 650px;
+  }
+
+  .risk-map-sidebar {
+    padding: 20px 15px;
+  }
+
+  .map-info-card {
+    left: 25%;
+  }
+}
+
+/* ==========================================
+   SMALL TABLET
+========================================== */
+
+@media (max-width: 800px) {
+  .risk-map-main {
+    grid-template-columns: minmax(0, 1fr) 290px;
+  }
+
+  .severity-key {
+    top: 18px;
+    left: 18px;
+  }
+
+  .map-info-card {
+    left: 20%;
+  }
+}
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 700px) {
+  .risk-map-main {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+  }
+
+  .risk-map-area {
+    width: 100%;
+    height: 65vh;
+    min-height: 450px;
+  }
+
+  .severity-key {
+    top: 12px;
+    left: 12px;
+    width: 195px;
+    padding: 11px;
+  }
+
+  .map-info-card {
+    top: auto;
+    bottom: 45px;
+    left: 12px;
+    width: min(270px, calc(100% - 50px));
+  }
+
+  .risk-map-sidebar {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+    padding: 22px 16px;
+    border-left: none;
+    border-top: 1px solid #e2e8f0;
+  }
+
+  .risk-map-footer-note {
+    font-size: 9px;
+    padding: 8px 10px;
+  }
+
+  .risk-map-footer-note span {
+    gap: 4px;
+  }
+
+  .selected-zone-extra {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ==========================================
+   VERY SMALL MOBILE
+========================================== */
+
+@media (max-width: 400px) {
+  .risk-map-area {
+    height: 60vh;
+    min-height: 400px;
+  }
+
+  .severity-key {
+    width: 175px;
+    padding: 9px;
+  }
+
+  .severity-key h3 {
+    font-size: 11px;
+  }
+
+  .severity-key div {
+    font-size: 10px;
+  }
+
+  .risk-map-sidebar {
+    padding: 18px 12px;
+  }
+
+  .sidebar-heading h2 {
+    font-size: 15px;
+  }
+
+  .risk-map-footer-note {
+    font-size: 8px;
+  }
+}
