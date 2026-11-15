@@ -1,0 +1,617 @@
+
+/* ==========================================
+   AUTHORITY INSIGHTS
+========================================== */
+
+.authority-page {
+  min-height: 100vh;
+  background: #f1f5f9;
+  color: #172033;
+  font-family: Arial, sans-serif;
+}
+
+.authority-main {
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 32px;
+  box-sizing: border-box;
+}
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.authority-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 27px;
+}
+
+.authority-header h1 {
+  margin: 0 0 7px;
+  font-size: 25px;
+  font-weight: 800;
+}
+
+.authority-header p {
+  margin: 0;
+  color: #647895;
+  font-size: 14px;
+}
+
+.authority-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.authority-header-actions button {
+  min-height: 38px;
+  padding: 0 18px;
+  border: none;
+  border-radius: 9px;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.authority-refresh-button {
+  background: #e2e8f0;
+  color: #172033;
+}
+
+.authority-refresh-button:hover {
+  background: #cbd5e1;
+}
+
+.authority-refresh-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.authority-export-button {
+  background: #08b6cc;
+  color: #06101d;
+}
+
+.authority-export-button:hover {
+  background: #06a3b8;
+}
+
+/* ==========================================
+   LOADING / ERROR / EMPTY STATES
+========================================== */
+
+.authority-loading,
+.authority-empty,
+.authority-error {
+  margin-bottom: 24px;
+  padding: 20px;
+  border-radius: 12px;
+  background: #ffffff;
+  border: 1px solid #dce5ef;
+  color: #647895;
+  font-size: 13px;
+}
+
+.authority-error {
+  border-color: #fecdd3;
+  background: #fff1f2;
+  color: #be123c;
+}
+
+.authority-error strong {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.authority-error p {
+  margin: 0 0 12px;
+}
+
+.authority-error button {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 7px;
+  background: #e11d48;
+  color: #ffffff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.authority-no-data {
+  padding: 20px 0;
+  color: #647895;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+/* ==========================================
+   SUMMARY CARDS
+========================================== */
+
+.authority-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 23px;
+  margin-bottom: 24px;
+}
+
+.authority-summary-card {
+  min-height: 116px;
+  padding: 19px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  background: #ffffff;
+  border: 1px solid #dce5ef;
+  border-radius: 16px;
+  box-sizing: border-box;
+}
+
+.authority-summary-label {
+  margin-bottom: 7px;
+  color: #647895;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.authority-summary-value {
+  margin-bottom: 7px;
+  color: #111b30;
+  font-size: 30px;
+  line-height: 1;
+  font-weight: 800;
+}
+
+.authority-summary-description {
+  color: #647895;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.danger-text {
+  color: #e11d48;
+}
+
+.success-text {
+  color: #059669;
+}
+
+/* ==========================================
+   ANALYTICS GRID
+========================================== */
+
+.authority-analytics-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.authority-panel {
+  min-width: 0;
+  background: #ffffff;
+  border: 1px solid #dce5ef;
+  border-radius: 16px;
+  box-sizing: border-box;
+}
+
+.authority-panel-heading {
+  padding: 24px 24px 0;
+}
+
+.authority-panel-heading h2,
+.interventions-heading h2 {
+  margin: 0 0 9px;
+  color: #172033;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.authority-panel-heading p,
+.interventions-heading p {
+  margin: 0;
+  color: #647895;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+/* ==========================================
+   RISK INDEX
+========================================== */
+
+.risk-index-panel {
+  min-height: 314px;
+  padding-bottom: 17px;
+}
+
+.risk-index-list {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  padding: 29px 24px 22px;
+}
+
+.risk-index-row {
+  display: grid;
+  grid-template-columns: 170px minmax(80px, 1fr) 35px 65px;
+  align-items: center;
+  gap: 15px;
+}
+
+.risk-location-name {
+  color: #172033;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.risk-progress-track {
+  height: 12px;
+  overflow: hidden;
+  border-radius: 5px;
+  background: #edf2f7;
+}
+
+.risk-progress-fill {
+  height: 100%;
+  border-radius: 5px;
+  transition: width 0.4s ease;
+}
+
+.risk-index-score {
+  color: #172033;
+  font-size: 14px;
+  text-align: center;
+}
+
+.risk-level-label {
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.risk-level-label.high {
+  color: #e11d48;
+}
+
+.risk-level-label.moderate {
+  color: #b45309;
+}
+
+.risk-level-label.low {
+  color: #059669;
+}
+
+.risk-level-label.unknown {
+  color: #64748b;
+}
+
+.risk-index-footer {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  padding: 0 24px;
+  color: #647895;
+  font-size: 11px;
+}
+
+/* ==========================================
+   PRIMARY RISK DRIVERS
+========================================== */
+
+.risk-drivers-panel {
+  min-height: 314px;
+  padding-bottom: 15px;
+}
+
+.risk-drivers-list {
+  display: flex;
+  flex-direction: column;
+  gap: 19px;
+  padding: 20px 24px;
+}
+
+.risk-driver-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.risk-driver-info {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.risk-driver-info strong {
+  color: #172033;
+  font-size: 12px;
+}
+
+.risk-driver-info span {
+  color: #647895;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.risk-driver-badge {
+  flex-shrink: 0;
+  min-width: 54px;
+  padding: 6px 12px;
+  border-radius: 7px;
+  font-size: 10px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.risk-driver-badge.high {
+  background: #fff1f2;
+  color: #e11d48;
+}
+
+.risk-driver-badge.moderate {
+  background: #fffbeb;
+  color: #b45309;
+}
+
+.risk-driver-badge.low {
+  background: #ecfdf5;
+  color: #059669;
+}
+
+.risk-driver-badge.unknown {
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+/* ==========================================
+   MAINTENANCE TABLE
+========================================== */
+
+.interventions-panel {
+  padding: 25px 24px 19px;
+  margin-bottom: 25px;
+}
+
+.interventions-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 17px;
+}
+
+.interventions-heading > span {
+  color: #647895;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.authority-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.authority-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.authority-table thead {
+  background: #f8fafc;
+}
+
+.authority-table th {
+  padding: 12px 10px;
+  color: #647895;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.authority-table td {
+  padding: 13px 10px;
+  border-bottom: 1px solid #dce5ef;
+  color: #172033;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.authority-table .table-action {
+  font-weight: 700;
+}
+
+.authority-table-empty {
+  padding: 24px !important;
+  color: #647895 !important;
+  text-align: center;
+}
+
+.priority-badge {
+  display: inline-block;
+  min-width: 75px;
+  padding: 6px 9px;
+  border-radius: 7px;
+  font-size: 10px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.priority-badge.high-priority {
+  background: #fff1f2;
+  color: #e11d48;
+}
+
+.priority-badge.medium-priority {
+  background: #fffbeb;
+  color: #b45309;
+}
+
+.priority-badge.routine {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+/* ==========================================
+   FOOTER
+========================================== */
+
+.authority-footer {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  color: #647895;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width: 1100px) {
+  .authority-summary-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .authority-analytics-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 750px) {
+  .authority-main {
+    padding: 20px 14px;
+  }
+
+  .authority-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .authority-header-actions {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .authority-header-actions button {
+    flex: 1;
+  }
+
+  .authority-summary-grid {
+    gap: 12px;
+  }
+
+  .authority-summary-card {
+    min-height: 105px;
+    padding: 14px;
+  }
+
+  .risk-index-row {
+    grid-template-columns: minmax(90px, 1fr) minmax(60px, 1.5fr) 28px 52px;
+    gap: 7px;
+  }
+
+  .risk-location-name {
+    font-size: 10px;
+  }
+
+  .risk-index-list {
+    padding: 25px 14px;
+  }
+
+  .risk-index-footer {
+    padding: 0 14px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .authority-footer {
+    flex-direction: column;
+  }
+
+  .interventions-panel {
+    padding: 18px 14px;
+  }
+}
+
+@media (max-width: 450px) {
+  .authority-summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .authority-header-actions {
+    flex-direction: column;
+  }
+
+  .authority-header-actions button {
+    width: 100%;
+  }
+
+  .risk-index-row {
+    grid-template-columns: 1fr 1fr 25px 48px;
+  }
+
+  .risk-index-score {
+    font-size: 12px;
+  }
+
+  .interventions-heading {
+    flex-direction: column;
+  }
+}
+
+/* ==========================================
+   PRINT / EXPORT PDF
+========================================== */
+
+@media print {
+  @page {
+    size: landscape;
+    margin: 12mm;
+  }
+
+  body {
+    background: #ffffff !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .safe-navbar,
+  .authority-header-actions {
+    display: none !important;
+  }
+
+  .authority-main {
+    max-width: none;
+    padding: 0;
+  }
+
+  .authority-panel,
+  .authority-summary-card {
+    break-inside: avoid;
+  }
+
+  .authority-analytics-grid {
+    grid-template-columns: 1.6fr 1fr;
+  }
+
+  .authority-summary-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .interventions-panel {
+    break-inside: avoid;
+  }
+}
