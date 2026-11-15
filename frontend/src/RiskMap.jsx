@@ -14,11 +14,7 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
 import {
-  Layers,
-  Activity,
   AlertTriangle,
-  Droplets,
-  Gauge,
   MapPin,
   Crosshair,
 } from "lucide-react";
@@ -70,15 +66,8 @@ export default function RiskMap() {
   const [error, setError] = useState("");
 
   // ----------------------------------------
-  // LAYER STATES
+  // SELECTED LOCATION
   // ----------------------------------------
-
-  const [layers, setLayers] = useState({
-    surface: true,
-    traffic: true,
-    water: false,
-    velocity: false,
-  });
 
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [showAllLocations, setShowAllLocations] = useState(true);
@@ -147,12 +136,14 @@ export default function RiskMap() {
           ) || null
         );
       });
+
     } catch (err) {
       console.error("Risk Map API error:", err);
 
       setError(
         "Unable to load Risk Map data. Please check that your Django backend is running."
       );
+
     } finally {
       setLoading(false);
     }
@@ -176,68 +167,16 @@ export default function RiskMap() {
   };
 
   // ========================================
-  // CHECK ACTIVE TELEMETRY LAYERS
-  // ========================================
-
-  const matchesActiveLayers = (location) => {
-    const activeLayers = [];
-
-    if (layers.surface) {
-      activeLayers.push(
-        location.surface_integrity_failures?.active === true
-      );
-    }
-
-    if (layers.traffic) {
-      activeLayers.push(
-        location.volatile_traffic_densities?.active === true
-      );
-    }
-
-    if (layers.water) {
-      activeLayers.push(
-        location.localized_monsoon_water_pooling?.active === true
-      );
-    }
-
-    if (layers.velocity) {
-      activeLayers.push(
-        location.anomalous_vehicle_velocity_spikes?.active === true
-      );
-    }
-
-    return activeLayers.some(Boolean);
-  };
-
-  // ========================================
   // FILTER LOCATIONS FOR MAP
   // ========================================
 
   const visibleLocations = useMemo(() => {
-    const layerFilteredLocations = riskLocations.filter(
-      matchesActiveLayers
-    );
-
-    if (!showAllLocations) {
-      return selectedLocation &&
-        matchesActiveLayers(selectedLocation)
-        ? [selectedLocation]
-        : [];
+    if (showAllLocations) {
+      return riskLocations;
     }
 
-    return layerFilteredLocations;
-  }, [riskLocations, layers, showAllLocations, selectedLocation]);
-
-  // ========================================
-  // LAYER TOGGLE
-  // ========================================
-
-  const toggleLayer = (layerName) => {
-    setLayers((previous) => ({
-      ...previous,
-      [layerName]: !previous[layerName],
-    }));
-  };
+    return selectedLocation ? [selectedLocation] : [];
+  }, [riskLocations, showAllLocations, selectedLocation]);
 
   // ========================================
   // SELECT LOCATION
@@ -268,6 +207,7 @@ export default function RiskMap() {
           {/* MAP LEGEND */}
 
           <div className="severity-key">
+
             <h3>SEVERITY INDEX KEY</h3>
 
             <div>
@@ -284,6 +224,7 @@ export default function RiskMap() {
               <span className="key-dot low" />
               Low Threat Zone
             </div>
+
           </div>
 
           {/* MAP */}
@@ -296,6 +237,7 @@ export default function RiskMap() {
             scrollWheelZoom={true}
             className="risk-leaflet-map"
           >
+
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -323,6 +265,7 @@ export default function RiskMap() {
                       click: () => setSelectedLocation(location),
                     }}
                   >
+
                     <Tooltip direction="top" offset={[0, -12]}>
                       <strong>{location.shortName}</strong>
                       <br />
@@ -330,7 +273,9 @@ export default function RiskMap() {
                     </Tooltip>
 
                     <Popup>
+
                       <div className="risk-map-popup">
+
                         <h3>{location.name}</h3>
 
                         <p>{location.description}</p>
@@ -348,8 +293,11 @@ export default function RiskMap() {
                           Damage Reports:{" "}
                           {location.surface_integrity_failures?.count ?? 0}
                         </p>
+
                       </div>
+
                     </Popup>
+
                   </Marker>
 
                   <CircleMarker
@@ -381,6 +329,7 @@ export default function RiskMap() {
 
           {error && (
             <div className="risk-map-error-message">
+
               <AlertTriangle size={16} />
 
               <span>{error}</span>
@@ -388,6 +337,7 @@ export default function RiskMap() {
               <button onClick={fetchRiskLocations}>
                 Retry
               </button>
+
             </div>
           )}
 
@@ -395,13 +345,14 @@ export default function RiskMap() {
 
           {!loading && !error && visibleLocations.length === 0 && (
             <div className="risk-map-empty-message">
-              No locations match the selected telemetry layers.
+              No risk locations available.
             </div>
           )}
 
           {/* MAP INFORMATION CARD */}
 
           {selectedLocation && (
+
             <div className="map-info-card">
 
               <button
@@ -413,6 +364,7 @@ export default function RiskMap() {
               </button>
 
               <div className="map-info-title">
+
                 <span
                   className="key-dot"
                   style={{
@@ -421,6 +373,7 @@ export default function RiskMap() {
                 />
 
                 <strong>{selectedLocation.name}</strong>
+
               </div>
 
               <p>{selectedLocation.description}</p>
@@ -441,6 +394,7 @@ export default function RiskMap() {
               </p>
 
             </div>
+
           )}
 
           {/* MAP FOOTER */}
@@ -464,94 +418,24 @@ export default function RiskMap() {
 
         <aside className="risk-map-sidebar">
 
-          <div className="sidebar-heading">
-            <Layers size={20} />
-            <h2>Spatial Layers &amp; Filters</h2>
-          </div>
-
-          {/* TELEMETRY LAYERS */}
-
-          <div className="sidebar-section">
-
-            <h3>TELEMETRY VIEW PROFILE</h3>
-
-            <button
-              className={`layer-toggle ${
-                layers.surface ? "enabled" : ""
-              }`}
-              onClick={() => toggleLayer("surface")}
-              aria-pressed={layers.surface}
-            >
-              <span>
-                <Activity size={16} />
-                Surface Integrity Failures
-              </span>
-
-              <i />
-            </button>
-
-            <button
-              className={`layer-toggle ${
-                layers.traffic ? "enabled" : ""
-              }`}
-              onClick={() => toggleLayer("traffic")}
-              aria-pressed={layers.traffic}
-            >
-              <span>
-                <Activity size={16} />
-                Volatile Traffic Densities
-              </span>
-
-              <i />
-            </button>
-
-            <button
-              className={`layer-toggle ${
-                layers.water ? "enabled" : ""
-              }`}
-              onClick={() => toggleLayer("water")}
-              aria-pressed={layers.water}
-            >
-              <span>
-                <Droplets size={16} />
-                Localized Monsoon Water Pooling
-              </span>
-
-              <i />
-            </button>
-
-            <button
-              className={`layer-toggle ${
-                layers.velocity ? "enabled" : ""
-              }`}
-              onClick={() => toggleLayer("velocity")}
-              aria-pressed={layers.velocity}
-            >
-              <span>
-                <Gauge size={16} />
-                Anomalous Vehicle Velocity Spikes
-              </span>
-
-              <i />
-            </button>
-
-          </div>
-
           {/* CRITICAL ZONES */}
 
           <div className="sidebar-section diagnostics-section">
 
             <div className="diagnostics-heading">
+
               <h3>CRITICAL ZONE DIAGNOSTICS</h3>
 
               <span>
                 {riskLocations.length} Zones
               </span>
+
             </div>
 
             <div className="diagnostics-list">
 
               {riskLocations.map((location) => (
+
                 <button
                   key={location.id}
                   className={`diagnostic-item ${
@@ -561,9 +445,13 @@ export default function RiskMap() {
                   }`}
                   onClick={() => selectLocation(location)}
                 >
+
                   <span className="diagnostic-name">
+
                     <MapPin size={15} />
+
                     {location.name}
+
                   </span>
 
                   <span className="diagnostic-score">
@@ -579,6 +467,7 @@ export default function RiskMap() {
                   </span>
 
                 </button>
+
               ))}
 
               {!loading && riskLocations.length === 0 && (
@@ -602,11 +491,15 @@ export default function RiskMap() {
           {/* SELECTED ZONE DETAILS */}
 
           {selectedLocation && (
+
             <div className="selected-zone-panel">
 
               <div className="selected-zone-heading">
+
                 <AlertTriangle size={17} />
+
                 <h3>Selected Zone Details</h3>
+
               </div>
 
               <strong>{selectedLocation.name}</strong>
@@ -670,9 +563,9 @@ export default function RiskMap() {
               </div>
 
             </div>
+
           )}
 
-        
           {/* REFRESH BUTTON */}
 
           <button
@@ -686,6 +579,7 @@ export default function RiskMap() {
         </aside>
 
       </main>
+
     </div>
   );
 }
