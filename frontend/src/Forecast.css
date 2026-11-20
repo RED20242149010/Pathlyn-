@@ -1,0 +1,474 @@
+
+/* ==========================================
+   FORECAST & SCORE PAGE
+========================================== */
+
+.forecast-page {
+  min-height: 100vh;
+  background: #f0f5fa;
+  color: #172033;
+  font-family: Arial, sans-serif;
+}
+
+.forecast-main {
+  width: 100%;
+  min-height: calc(100vh - 80px);
+  padding: 32px;
+  box-sizing: border-box;
+
+  display: grid;
+  grid-template-columns: minmax(390px, 480px) minmax(0, 1fr);
+  gap: 24px;
+}
+
+.forecast-left-column,
+.forecast-right-column {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 0;
+}
+
+.forecast-panel {
+  background: #ffffff;
+  border: 1px solid #dce5ef;
+  border-radius: 16px;
+  box-sizing: border-box;
+}
+
+/* ==========================================
+   CURRENT RISK SCORE
+========================================== */
+
+.current-risk-panel {
+  min-height: 189px;
+  padding: 23px;
+}
+
+.forecast-warning-badge {
+  display: inline-block;
+  padding: 6px 11px;
+  border-radius: 7px;
+
+  background: #fff3c4;
+  color: #d97706;
+
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+}
+
+.current-risk-content {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 20px;
+}
+
+.forecast-score-circle {
+  width: 100px;
+  height: 100px;
+  min-width: 100px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  border: 3px solid #f59e0b;
+  border-radius: 50%;
+
+  background: #fff8d9;
+  color: #f59e0b;
+}
+
+.forecast-score-circle strong {
+  font-size: 34px;
+  line-height: 1;
+  font-weight: 800;
+}
+
+.forecast-score-circle span {
+  margin-top: 4px;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.current-risk-description h1 {
+  margin: 0 0 7px;
+  font-size: 21px;
+  font-weight: 800;
+}
+
+.current-risk-description p {
+  margin: 0;
+  max-width: 310px;
+  color: #647895;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+/* ==========================================
+   HAZARD FACTORS
+========================================== */
+
+.hazard-panel {
+  min-height: 208px;
+  padding: 23px;
+}
+
+.hazard-panel h2,
+.advisory-panel h2 {
+  margin: 0 0 21px;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.hazard-factor-list {
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+}
+
+.hazard-factor-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.hazard-factor-heading strong {
+  color: #172033;
+  font-size: 12px;
+}
+
+.hazard-factor-heading span {
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.hazard-progress-track {
+  width: 100%;
+  height: 8px;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #edf2f7;
+}
+
+.hazard-progress-fill {
+  height: 100%;
+  border-radius: 10px;
+}
+
+/* ==========================================
+   ROUTE ADVISORY
+========================================== */
+
+.advisory-panel {
+  min-height: 211px;
+  padding: 21px 19px;
+}
+
+.advisory-panel h2 {
+  margin-bottom: 18px;
+}
+
+.advisory-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  padding: 15px 14px;
+  border-radius: 9px;
+}
+
+.advisory-card strong {
+  font-size: 12px;
+}
+
+.advisory-card span {
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.advisory-primary {
+  margin-bottom: 15px;
+  background: #080e1b;
+  color: #ffffff;
+}
+
+.advisory-primary span {
+  color: #00d5e9;
+}
+
+.advisory-secondary {
+  border: 1px solid #dce5ef;
+  background: #f1f5f9;
+  color: #172033;
+}
+
+.advisory-secondary span {
+  color: #647895;
+}
+
+/* ==========================================
+   SIX-HOUR FORECAST CHART
+========================================== */
+
+.forecast-chart-panel {
+  min-height: 327px;
+  padding: 23px;
+}
+
+.forecast-panel-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.forecast-panel-heading h2,
+.forecast-map-heading h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.forecast-panel-heading > span {
+  color: #06b6d4;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.forecast-chart {
+  height: 245px;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 20px;
+
+  padding: 25px 22px 0;
+  box-sizing: border-box;
+}
+
+.forecast-chart-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  min-width: 0;
+}
+
+.forecast-bar-area {
+  width: 100%;
+  height: 180px;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.forecast-bar {
+  width: 38px;
+  max-width: 80%;
+  min-height: 10px;
+
+  border: 2px solid transparent;
+  border-radius: 4px 4px 0 0;
+  box-sizing: border-box;
+}
+
+.forecast-bar.current {
+  border: 2px solid #111827 !important;
+}
+
+.forecast-chart-column strong {
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.forecast-chart-column > span {
+  color: #647895;
+  font-size: 11px;
+}
+
+.forecast-chart-column > span.current-time {
+  color: #172033;
+  font-weight: 800;
+}
+
+/* ==========================================
+   SPATIAL MAP
+========================================== */
+
+.forecast-map-panel {
+  overflow: hidden;
+}
+
+.forecast-map-heading {
+  min-height: 48px;
+  padding: 0 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.forecast-map-heading h2 {
+  font-size: 14px;
+}
+
+.forecast-map-heading span {
+  color: #f59e0b;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.forecast-map-container {
+  position: relative;
+  height: 230px;
+  width: 100%;
+}
+
+.forecast-leaflet-map {
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.forecast-map-alert {
+  position: absolute;
+  top: 38px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 500;
+
+  padding: 8px 12px;
+  border: 1px solid #f59e0b;
+  border-radius: 7px;
+
+  background: rgba(255, 251, 235, 0.95);
+  color: #d97706;
+
+  font-size: 10px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.forecast-map-label-wrapper {
+  background: transparent;
+  border: none;
+}
+
+.forecast-map-label {
+  width: max-content;
+  max-width: 160px;
+  padding: 2px 5px;
+
+  border: 2px solid var(--label-color);
+  background: rgba(255, 255, 255, 0.94);
+
+  color: var(--label-color);
+  font-size: 13px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width: 1100px) {
+  .forecast-main {
+    grid-template-columns: 1fr;
+    padding: 22px;
+  }
+
+  .forecast-left-column {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+  }
+
+  .current-risk-panel {
+    grid-column: 1 / -1;
+  }
+
+  .forecast-right-column {
+    width: 100%;
+  }
+}
+
+@media (max-width: 650px) {
+  .forecast-main {
+    padding: 14px;
+    gap: 16px;
+  }
+
+  .forecast-left-column {
+    display: flex;
+    gap: 16px;
+  }
+
+  .current-risk-content {
+    gap: 15px;
+  }
+
+  .forecast-score-circle {
+    width: 82px;
+    height: 82px;
+    min-width: 82px;
+  }
+
+  .forecast-score-circle strong {
+    font-size: 28px;
+  }
+
+  .current-risk-description h1 {
+    font-size: 17px;
+  }
+
+  .current-risk-description p {
+    font-size: 12px;
+  }
+
+  .forecast-chart-panel {
+    padding: 17px 12px;
+  }
+
+  .forecast-panel-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .forecast-chart {
+    gap: 8px;
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+
+  .forecast-bar {
+    width: 27px;
+  }
+
+  .forecast-map-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    padding: 12px;
+  }
+
+  .forecast-map-container {
+    height: 260px;
+  }
+}
+
+/* ==========================================
+   LEAFLET FIX
+========================================== */
+
+.forecast-page .leaflet-container {
+  font-family: Arial, sans-serif;
+}
