@@ -1,0 +1,393 @@
+
+/* ======================================
+   PATHLYN NAVBAR
+====================================== */
+
+.safe-navbar {
+  width: 100%;
+  height: 108px;
+  min-height: 108px;
+  padding: 0 26px;
+  box-sizing: border-box;
+
+  display: grid;
+  grid-template-columns: 290px minmax(0, 1fr) 300px;
+  align-items: center;
+  gap: 18px;
+
+  background: #080e1b;
+  color: #ffffff;
+  border-bottom: 1px solid #263247;
+
+  font-family: Arial, sans-serif;
+  position: relative;
+  z-index: 1000;
+}
+
+/* ======================================
+   PATHLYN BRAND
+====================================== */
+
+.safe-navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  min-width: 0;
+  width: 100%;
+
+  text-decoration: none;
+  color: #ffffff;
+}
+
+/* LOGO CONTAINER */
+
+.safe-navbar-logo {
+  width: 60px;
+  height: 60px;
+  min-width: 60px;
+  max-width: 60px;
+
+  flex: 0 0 60px;
+
+  position: relative;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #f4f1e9;
+  border-radius: 10px;
+}
+
+/* LOGO IMAGE */
+
+.pathlyn-logo {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+
+  object-fit: contain;
+  object-position: center;
+
+  position: relative;
+}
+
+/* BRAND TEXT */
+
+.safe-navbar-brand-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  min-width: 0;
+  overflow: hidden;
+}
+
+.safe-navbar-brand-text h1 {
+  margin: 0 0 6px !important;
+
+  color: #ffffff;
+  font-size: 25px !important;
+  line-height: 1.1 !important;
+  font-weight: 800;
+  letter-spacing: 3px;
+
+  white-space: nowrap;
+}
+
+.safe-navbar-brand-text span {
+  color: #f5a623;
+
+  font-size: 9px !important;
+  line-height: 1.3 !important;
+  font-weight: 700;
+  letter-spacing: 1px;
+
+  white-space: nowrap;
+}
+
+/* ======================================
+   NAVIGATION LINKS
+====================================== */
+
+.safe-navbar-links {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  scrollbar-width: none;
+}
+
+.safe-navbar-links::-webkit-scrollbar {
+  display: none;
+}
+
+.safe-navbar-link {
+  height: 100%;
+  flex: 0 0 auto;
+  padding: 0 5px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+
+  color: #c4cddd;
+  text-decoration: none;
+
+  font-size: 15px !important;
+  font-weight: 500;
+  white-space: nowrap;
+
+  transition: color 0.2s ease;
+}
+
+.safe-navbar-link:hover,
+.safe-navbar-link.active {
+  color: #00d5e9;
+}
+
+.safe-navbar-link.active {
+  font-weight: 700;
+}
+
+.safe-navbar-link.active::after {
+  content: "";
+
+  position: absolute;
+  bottom: 0;
+  left: 10%;
+
+  width: 80%;
+  height: 4px;
+
+  background: #08c4dc;
+  border-radius: 5px 5px 0 0;
+}
+
+.safe-navbar-link-icon {
+  display: none;
+}
+
+/* ======================================
+   USER ACCOUNT
+====================================== */
+
+.safe-navbar-account {
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  gap: 14px;
+}
+
+.safe-navbar-user {
+  min-width: 0;
+  max-width: 145px;
+
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  color: #ffffff;
+  font-size: 15px !important;
+  font-weight: 600;
+}
+
+.safe-navbar-user span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.safe-navbar-logout {
+  height: 50px;
+  flex-shrink: 0;
+  padding: 0 15px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  border: 1px solid #29374e;
+  border-radius: 12px;
+
+  background: #121d2e;
+  color: #ffffff;
+
+  font-size: 15px !important;
+  font-weight: 700;
+  white-space: nowrap;
+
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.safe-navbar-logout:hover {
+  background: #203047;
+}
+
+.safe-navbar-logout:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ======================================
+   MEDIUM SCREEN
+====================================== */
+
+@media (max-width: 1450px) {
+  .safe-navbar {
+    grid-template-columns: 245px minmax(0, 1fr) 235px;
+    gap: 10px;
+    padding: 0 16px;
+  }
+
+  .safe-navbar-logo {
+    width: 52px;
+    height: 52px;
+    min-width: 52px;
+    max-width: 52px;
+    flex-basis: 52px;
+  }
+
+  .safe-navbar-brand {
+    gap: 9px;
+  }
+
+  .safe-navbar-brand-text h1 {
+    font-size: 22px !important;
+    letter-spacing: 3px;
+  }
+
+  .safe-navbar-brand-text span {
+    font-size: 7.5px !important;
+    letter-spacing: 0.8px;
+  }
+
+  .safe-navbar-links {
+    gap: 8px;
+    justify-content: flex-start;
+  }
+
+  .safe-navbar-link {
+    font-size: 13px !important;
+  }
+
+  .safe-navbar-account {
+    gap: 8px;
+  }
+
+  .safe-navbar-user {
+    max-width: 100px;
+    font-size: 12px !important;
+  }
+
+  .safe-navbar-logout {
+    padding: 0 10px;
+    font-size: 13px !important;
+  }
+}
+
+/* ======================================
+   TABLET
+====================================== */
+
+@media (max-width: 1100px) {
+  .safe-navbar {
+    height: auto;
+    min-height: 108px;
+    padding: 14px 18px;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .safe-navbar-links {
+    order: 3;
+    flex-basis: 100%;
+    height: 48px;
+    justify-content: flex-start;
+  }
+
+  .safe-navbar-link {
+    height: 48px;
+    padding: 0 12px;
+  }
+}
+
+/* ======================================
+   MOBILE
+====================================== */
+
+@media (max-width: 600px) {
+  .safe-navbar {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .safe-navbar-logo {
+    width: 45px;
+    height: 45px;
+    min-width: 45px;
+    max-width: 45px;
+    flex-basis: 45px;
+  }
+
+  .safe-navbar-brand {
+    gap: 8px;
+  }
+
+  .safe-navbar-brand-text h1 {
+    font-size: 19px !important;
+    letter-spacing: 2px;
+  }
+
+  .safe-navbar-brand-text span {
+    font-size: 6.5px !important;
+    letter-spacing: 0.5px;
+  }
+
+  .safe-navbar-user {
+    max-width: 90px;
+  }
+
+  .safe-navbar-logout {
+    width: 42px;
+    height: 42px;
+    padding: 0;
+  }
+
+  .safe-navbar-logout span {
+    display: none;
+  }
+
+  .safe-navbar-links {
+    gap: 5px;
+  }
+
+  .safe-navbar-link {
+    padding: 0 10px;
+    font-size: 12px !important;
+  }
+}
